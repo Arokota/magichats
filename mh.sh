@@ -50,6 +50,6 @@ then
     then
         terraform apply --target=module.$module -var region=$region -var c2_server=$c2_server -var num_of_instances=$count -var-file=magichats.tfvars -auto-approve
     else
-        terraform destroy --target=module.$module -var region=$region -var c2_server=$c2_server -var num_of_instances=$count -var-file=magichats.tfvars -auto-approve
+        terraform destroy --target=module.$module -var region=$region -var c2_server=$c2_server -var num_of_instances=$count -auto-approve
     fi
 fi
