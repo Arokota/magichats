@@ -1,0 +1,6 @@
+- name: Setup Apache to redirect to our C2 Server
+  hosts: all
+  gather_facts: no
+  become: yes
+  roles:
+    - apache-redirector

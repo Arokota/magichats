@@ -1,0 +1,28 @@
+---
+
+- name: Install Socat
+  apt:
+    name: socat
+    state: present
+    update_cache: yes 
+
+
+- name: "Setup Cronjob to redirect port 443"
+  ansible.builtin.cron:
+    name: "Cron443"
+    special_time: reboot
+    user: root
+    job: "socat TCP4-LISTEN:443,fork TCP4:{{ c2 }}:443" #This is meant to passed at runtime via ansible-laybook -e "c2=<ip-of-c2-server>"
+    state: present
+
+- name: "Setup Cronjob to redirect port 80"
+  ansible.builtin.cron:
+    name: "Cron80"
+    special_time: reboot
+    user: root
+    job: "socat TCP4-LISTEN:80,fork TCP4:{{ c2 }}:80"
+    state: present
+
+- name: "Rebooting System in order to start CronJob"
+  ansible.builtin.reboot:
+

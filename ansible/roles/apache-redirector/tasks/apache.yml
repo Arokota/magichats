@@ -1,0 +1,35 @@
+---
+#Credit: https://github.com/tevora-threat/rt_redirectors/blob/master/tasks/apache.yml
+- name: Install Apache web server
+  apt: name=apache2 update_cache=yes state=latest
+
+- name: Install php
+  apt: name=php update_cache=yes state=latest
+  ignore_errors: true
+
+
+- name: Install mod php
+  apt: name=libapache2-mod-php update_cache=yes state=latest
+  ignore_errors: true
+
+
+- apache2_module: name=headers state=present
+- apache2_module: name=rewrite state=present
+- apache2_module: name=proxy state=present
+- apache2_module: name=ssl state=present
+- apache2_module: name=proxy_http state=present
+- apache2_module: name=cache state=absent
+- apache2_module: name=php7.0 state=present
+- apache2_module: name=deflate state=absent force=yes
+ 
+- name: "Overwrite default Apache configuration file"
+  copy:
+    src: files/000-default.conf
+    dst: /etc/apache2/sites-avaialble/000-default.conf
+
+- name: "Overwrite .htaccess file"
+  copy:
+    src: files/.htaccess
+    dst: /var/www/html
+
+- service: name=apache2 state=restarted
