@@ -1,0 +1,60 @@
+#Credit: https://github.com/tevora-threat/rt_redirectors/blob/master/templates/apache_sslvhost.conf.j2
+<VirtualHost 0.0.0.0:{{ item.https_port }}>
+
+<Directory /var/www/html>
+Options Indexes FollowSymLinks
+AllowOverride All
+Require all granted
+</Directory>
+
+ProxyPreserveHost On
+RewriteEngine On
+
+SSLEngine On
+SSLCertificateFile /etc/ssl/certs/ssl-cert-snakeoil.pem
+SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+
+
+SSLProxyEngine On
+SSLProxyVerify none
+SSLProxyCheckPeerCN off
+SSLProxyCheckPeerName off
+SSLProxyCheckPeerExpire off
+
+ServerName {{ item.servername }}
+ DocumentRoot /var/www/html
+
+ErrorLog ${APACHE_LOG_DIR}/error.log
+ CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+
+{% if  item.config_files is defined %}
+{% for config_file in item.config_files %}
+	{{ lookup('file', config_file) }} 
+{% endfor %}
+{% endif %}
+
+
+{% if  item.pre_configs is defined %}
+{% for config in item.pre_configs %}
+{{ config}}
+{% endfor %}
+{% endif %}
+
+{% if  item.c2filters is defined %}
+{% for c in item.c2filters %}
+	RewriteCond %{REQUEST_URI} {{ c.rewritefilter }}
+	RewriteRule ^.*$ https://{{ c.host }}%{REQUEST_URI} [P,NE]    
+{% endfor %}
+{% endif %}
+
+{% if  item.configs is defined %}
+{% for config in item.configs %}
+{{ config}}
+{% endfor %}
+{% endif %}
+
+
+
+
+</VirtualHost>

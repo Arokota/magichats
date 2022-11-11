@@ -7,11 +7,17 @@
   apt: name=php update_cache=yes state=latest
   ignore_errors: true
 
-
 - name: Install mod php
   apt: name=libapache2-mod-php update_cache=yes state=latest
   ignore_errors: true
 
+- name: create https virtual host files, one per servername
+  template: src=apache_sslvhost.conf.j2 dest=/etc/apache2/sites-available/rtssl_{{ item.servername }}.conf
+  with_items: "{{ vhosts }}"
+
+- name: create http virtual host files, one per servername
+  template: src=apache_vhost.conf.j2 dest=/etc/apache2/sites-available/rt_{{ item.servername }}.conf
+  with_items: "{{ vhosts }}"
 
 - apache2_module: name=headers state=present
 - apache2_module: name=rewrite state=present
@@ -21,15 +27,18 @@
 - apache2_module: name=cache state=absent
 - apache2_module: name=php7.0 state=present
 - apache2_module: name=deflate state=absent force=yes
- 
-- name: "Overwrite default Apache configuration file"
-  copy:
-    src: files/000-default.conf
-    dst: /etc/apache2/sites-avaialble/000-default.conf
 
-- name: "Overwrite .htaccess file"
-  copy:
-    src: files/.htaccess
-    dst: /var/www/html
+- name: disable default sites
+  command: a2dissite *
+
+
+- name: enable the http sites
+  command: a2ensite rt_{{ item.servername }}
+  with_items: "{{ vhosts }}"
+
+
+- name: enable the https sites
+  command: a2ensite rtssl_{{ item.servername }}
+  with_items: "{{ vhosts }}"
 
 - service: name=apache2 state=restarted

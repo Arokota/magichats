@@ -10,12 +10,14 @@ Current state of deployment does not utilize `mh.sh` and relies on Terraform con
 - [x] Automatic AWS Subnet Creation
 - [x] Automatic AWS Firewall Rule Creation
 - [x] Socat Redirectors
-- [ ] NGINX HTTP Redirectors
+- [x] Apache HTTP(S) Redirectors
 	- [ ] Automate LetsEncrypt Registration
 - [x] C2 Server Deployment
 	- [ ] Sliver
 	- [ ] CobaltStrike
 	- [ ] Wireguard Bastion (RedRoute)
+## Requirments
+-
 ## Installation
 
 ```

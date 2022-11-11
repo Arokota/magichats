@@ -1,0 +1,25 @@
+- name: Setup Apache to redirect to our C2 Server
+  hosts: all
+  gather_facts: no
+  become: yes
+  roles:
+      - apache-redirector
+  vars:
+    vhosts: [
+            {
+              servername: 'redirector.arokota.com',
+              http_port: 80,
+              https_port: 443,
+              c2filters: [
+                {
+                  rewritefilter: '^/orders/track/?$',
+                  host: "{{ target }}" #Should be passed at commandline from Terraform. IE: ansible-laybook -i setup_apache.yml -e "c2=1.1.1.1"
+                }
+              ]
+              #                  configs: [ 
+              #  'RewriteRule !\.php$ https://www.amazon.com/%{REQUEST_URI} [L,R=302]'
+              #]
+            }
+          ]
+
+

@@ -4,3 +4,5 @@
   become: yes
   roles:
     - socat-redirector
+  vars:
+    c2-server: {{ c2 }}

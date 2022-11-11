@@ -1,7 +1,11 @@
 # Variables
 ########################################################
-variable "num_of_instances" {
+variable "socat_instances" {
   description = "Number of MH-SOCAT-RDR to spin up"
+}
+
+variable "apache_instances" {
+  description = "Number of MH-APACHE-RDR to spin up"
 }
 
 variable "ssh-pubkey" {
@@ -32,3 +36,9 @@ variable "secret_key" {
   description = "Secret key for AWS service account"
   default     = ""
 }
+
+variable "redirector-type" {
+  description = "Socat or Apache (requires ansible config)"
+  default = "socat"
+}
+
