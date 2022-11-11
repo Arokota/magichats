@@ -12,12 +12,15 @@ Current state of deployment does not utilize `mh.sh` and relies on Terraform con
 - [x] Socat Redirectors
 - [x] Apache HTTP(S) Redirectors
 	- [ ] Automate LetsEncrypt Registration
-- [x] C2 Server Deployment
+- [ ] C2 Server Deployment
 	- [ ] Sliver
 	- [ ] CobaltStrike
 	- [ ] Wireguard Bastion (RedRoute)
-## Requirments
--
+## Requirements
+- Ansible
+- Terraform
+- Python3
+- AWS Account
 ## Installation
 
 ```
@@ -49,7 +52,7 @@ Edit `terraform.tfvars` and fill in your AWS credentials and SSH keys
 
 ## Inspiration
 
-A lot of these folk wrote really great blog posts that I definitely totally did not lift a couple of snippets here and there from.  Overall I think it's a great excercise to build this out yourself rather than just using someone elses deployment scripts. *Shakes fisk at Ansible*
+A lot of these folk wrote really great blog posts that I definitely totally did not lift a couple of snippets here and there from (or whole files in some case).  Overall I think it's a great excercise to build this out yourself rather than just using someone elses deployment scripts. *Shakes fisk at Ansible*
 
 - https://rastamouse.me/infrastructure-as-code-terraform-ansible/
 - https://anubissec.github.io/Using-Ansible-and-Terraform-to-Build-Red-Team-Infrastructure/
