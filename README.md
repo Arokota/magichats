@@ -45,8 +45,6 @@ Edit `terraform.tfvars` and fill in your AWS credentials and SSH keys
 	* Terraform launched with the `--var-file="variables.tfvars" file
 	* Profit
 
-There is a deprecated attempt extend the application's front end in order to allow for easy management of nodes through a simple and intuitive web interface in `magichats-web`.  I have lost the time to work on this and have found that a bash script works fine for my purposes :).  I have left the files there for historical purposes or if anyone would like to contribute.
-
 ## Inspiration
 
 A lot of these folk wrote really great blog posts that I definitely totally did not lift a couple of snippets here and there from.  Overall I think it's a great excercise to build this out yourself rather than just using someone elses deployment scripts. *Shakes fisk at Ansible*

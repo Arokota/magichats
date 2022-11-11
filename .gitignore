@@ -29,3 +29,4 @@ override.tf.json
 # example: *tfplan*
 #
 mh.pem
+terraform.tfvars #don't wwant those aws keys going up
