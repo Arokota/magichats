@@ -12,13 +12,13 @@
               https_port: 443,
               c2filters: [
                 {
-                  rewritefilter: '^/orders/track/?$',
+                  rewritefilter: '^/orders/track/?.*$',
                   host: "{{ target }}" #Should be passed at commandline from Terraform. IE: ansible-laybook -i setup_apache.yml -e "c2=1.1.1.1"
                 }
+              ],
+                                configs: [ 
+                'RewriteRule ^.*$ https://www.arokota.com/? [L,R=302]' #Where should traffic go that doesn't match out rules
               ]
-              #                  configs: [ 
-              #  'RewriteRule !\.php$ https://www.amazon.com/%{REQUEST_URI} [L,R=302]'
-              #]
             }
           ]
 

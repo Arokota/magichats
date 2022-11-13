@@ -1,4 +1,4 @@
-#Credit: https://github.com/tevora-threat/rt_redirectors/blob/master/templates/apache_vhost.conf.j2
+#Credit:https://github.com/tevora-threat/rt_redirectors/blob/master/templates/apache_vhost.conf.j2
 <VirtualHost 0.0.0.0:{{ item.http_port }}>
     RewriteEngine On
 
@@ -11,9 +11,9 @@ Require all granted
 ProxyPreserveHost On
 
 ServerName {{ item.servername }}
- DocumentRoot /var/www/html
+DocumentRoot /var/www/html
 ErrorLog ${APACHE_LOG_DIR}/error.log
- CustomLog ${APACHE_LOG_DIR}/access.log combined
+CustomLog ${APACHE_LOG_DIR}/access.log combined
 
 
 {% if  item.config_files is defined %}
@@ -32,7 +32,7 @@ ErrorLog ${APACHE_LOG_DIR}/error.log
 {% if  item.c2filters is defined %}
 {% for c in item.c2filters %}
 	RewriteCond %{REQUEST_URI} {{ c.rewritefilter }}
-	RewriteRule ^.*$ https://{{ c.host }}%{REQUEST_URI} [P,NE]    
+	RewriteRule ^.*$ http://{{ c.host }}%{REQUEST_URI} [P,NE]    
 {% endfor %}
 {% endif %}
 

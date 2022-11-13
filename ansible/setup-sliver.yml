@@ -1,0 +1,8 @@
+- name: Setup Sliver C2
+  hosts: all
+  gather_facts: no
+  become: yes
+  roles:
+      - sliver
+  vars:
+    operator: "arokota"

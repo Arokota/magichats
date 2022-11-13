@@ -1,7 +1,3 @@
-output "socat-ips" {
-  description = "Public IP Addresses of SOCAT redirectors"
-  value       =join(",", aws_instance.MH-SOCAT-RDR[*].public_ip)
-}
 
 output "apache-ips" {
   description = "Public IP Addresses of SOCAT redirectors"

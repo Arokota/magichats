@@ -1,0 +1,22 @@
+---
+
+- name: Create user for operation
+  user:
+    name: "{{ operator }}"
+    shell: /bin/nologin
+    groups: sudo
+    state: present
+    create_home: yes
+
+- name: Runng apt update
+  apt: update_cache=yes
+
+- name: Run Sliver install script
+  shell:
+    cmd: curl https://sliver.sh/install|sudo bash
+
+- name: Fetch Sliver operator profile back to us
+  fetch:
+    src: /home/{{ operator }}/.sliver-client/configs/{{ operator }}_localhost.cfg
+    dest: ../
+    flat: yes
