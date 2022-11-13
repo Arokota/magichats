@@ -58,8 +58,8 @@ Current implementation requires `instances.tf` to be edited to manually instruct
 ## Only Apache
 (Default redirects port 80,443)
 
-* By default Apache will use self-signed certifications. Current implementation does not automate letsencrypt but you can easily subsitute that if you would like.
-* Personally I prefer to put my DNS behind CloudFlare and use one of their certifications, letting my backend run raw HTTP through the Amazon VPC.  
+By default Apache will use self-signed certifications. Current implementation does not automate letsencrypt but you can easily subsitute that if you would like.
+Personally I prefer to put my DNS behind CloudFlare and use one of their certifications, letting my backend run raw HTTP through the Amazon VPC.  
 
 1. Create an AWS account and add a default SSH key for instances to be created with
 2. Download Magichats and install using the instructions above
