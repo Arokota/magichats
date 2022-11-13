@@ -49,25 +49,25 @@ Current implementation requires `instances.tf` to be edited to manually instruct
 1. Create an AWS account and add a default SSH key for instances to be created with
 2. Download Magichats and install using the instructions above
 3. Edit `instances.tf` and `output.tf` and comment out Apache-Redirectors
-..- Edit `/ansible/setup-sliver.yml` if you would like to have a different operator name than the default
+	- Edit `/ansible/setup-sliver.yml` if you would like to have a different operator name than the default
 4. Run `terraform apply` to deploy. 
-..- Enter how many redirectors you want
-..- Take note of `c2_ip` since you will need to reverse SSH port 31337 (default Sliver) to access
+	- Enter how many redirectors you want
+	- Take note of `c2_ip` since you will need to reverse SSH port 31337 (default Sliver) to access
 5. Ansible will dump `<your-operator-name>_localhost.cfg` to the project directory which will be your Sliver access profile. Use this to connect
 
 ## Only Apache
 (Default redirects port 80,443)
 
-* By default Apache will use self-signed certifications. Current implementation does not automate letsencrypt but you can easily subsitute that if you would like.
-* Personally I prefer to put my DNS behind CloudFlare and use one of their certifications, letting my backend run raw HTTP through the Amazon VPC.  
+By default Apache will use self-signed certifications. Current implementation does not automate letsencrypt but you can easily subsitute that if you would like.
+Personally I prefer to put my DNS behind CloudFlare and use one of their certificates, letting my backend run raw HTTP through the Amazon VPC.  
 
 1. Create an AWS account and add a default SSH key for instances to be created with
 2. Download Magichats and install using the instructions above
 3. Edit `instances.tf` and `output.tf` and comment out Socat-Redirectors
 4. Edit `ansible/setup-apache.yml` and fill Apache Rewrite rules you would like.
 5. Run `terraform apply` to deploy.  Take note of `c2_ip` since you will need to reverse SSH port 31337 (default Sliver) to access
-..* Enter how many redirectors you want
-..* Take note of `c2_ip` since you will need to reverse SSH port 31337 (default Sliver) to access
+	- Enter how many redirectors you want
+	- Take note of `c2_ip` since you will need to reverse SSH port 31337 (default Sliver) to access
 6. Ansible will dump `changeme_localhost.cfg` to the project directory which will be your Sliver access profile. Use this to connect
 
 ## Both Apache and Socat
