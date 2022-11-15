@@ -12,7 +12,7 @@
     name: "Cron443"
     special_time: reboot
     user: root
-    job: "socat TCP4-LISTEN:443,fork TCP4:{{ c2-server }}:443" #This is meant to passed at runtime via ansible-laybook -e "c2=<ip-of-c2-server-server>"
+    job: "socat TCP4-LISTEN:443,fork TCP4:{{ c2 }}:443" #This is meant to passed at runtime via ansible-laybook -e "c2=<ip-of-c2-server-server>"
     #c2-server variable is defined in main playbook, which is then derived from commandline
     state: present
 
@@ -21,7 +21,7 @@
     name: "Cron80"
     special_time: reboot
     user: root
-    job: "socat TCP4-LISTEN:80,fork TCP4:{{ c2-server }}:80"
+    job: "socat TCP4-LISTEN:80,fork TCP4:{{ c2 }}:80"
     state: present
 
 - name: "Rebooting System in order to start CronJob"
