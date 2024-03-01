@@ -1,0 +1,6 @@
+- name: Setup Socat to redirect to C2 Server
+  hosts: all
+  gather_facts: no
+  become: yes
+  roles:
+    - golang
